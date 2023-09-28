@@ -13,6 +13,7 @@ def dark_channel(im, patch):
     im : array de l'image
     patch : hauteur du patch
     """
+
     M,N,a = np.shape(im)
 
     if patch%2 == 0:
@@ -30,6 +31,11 @@ def dark_channel(im, patch):
     return darkchannel
 
 def atmosphere_light(im, dc, p):
+    """
+    im : array de l'image
+    dc : darkchannel de l'image
+    p : pourcentage de pixel 
+    """
     
     Liste = []
     
@@ -52,5 +58,11 @@ def atmosphere_light(im, dc, p):
     return np.array([max_r, max_g, max_b])
 
 def transmission(im, A, omega, patch):
+    """
+    im : array de l'image
+    A : atmosphere_light 
+    omega : coefficient 
+    patch : hauteur du patch
+    """
     return 1 - omega* dark_channel(im / A,patch)
 
