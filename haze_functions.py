@@ -64,5 +64,5 @@ def transmission(im, A, omega, patch):
     omega : coefficient 
     patch : hauteur du patch
     """
-    return 1 - omega* dark_channel(im / A,patch)
+    return 1 - omega * dark_channel(im / A,patch)
 
