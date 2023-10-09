@@ -40,14 +40,12 @@ def atmosphere_light(im, dc, p):
     Liste = []
     
     M,N = dc.shape
-    onedc = dc.flatten()
-    onedim = im.reshape(M*N,3)
-    indices_sorted = onedc.argsort()[::-1][:int(M * N * p)]
+    onedc = dc.flatten() ## put in one dimension
+    onedim = im.reshape(M*N,3) 
+    indices_sorted = onedc.argsort()[::-1][:int(M * N * p)]  ##take highest valued pixel in the darkchannel
     
     for k in indices_sorted:
         Liste.append(onedim[k])
-    
-    #print(divmod(indices_sorted, N))
     
     array_pixels = np.array(Liste)
 
@@ -64,5 +62,7 @@ def transmission(im, A, omega, patch):
     omega : coefficient 
     patch : hauteur du patch
     """
+    
+    
     return 1 - omega * dark_channel(im / A,patch)
 
