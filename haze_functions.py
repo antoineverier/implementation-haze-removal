@@ -64,5 +64,34 @@ def transmission(im, A, omega, patch):
     omega : coefficient 
     patch : hauteur du patch
     """
-    return 1 - omega * dark_channel(im / A,patch)
+    
+    return 1 - omega * dark_channel(im/A,patch)
 
+def get_atmosphere(I, darkch, p):
+    """Get the atmosphere light in the (RGB) image data.
+
+    Parameters
+    -----------
+    I:      the M * N * 3 RGB image data ([0, L-1]) as numpy array
+    darkch: the dark channel prior of the image as an M * N numpy array
+    p:      percentage of pixels for estimating the atmosphere light
+
+    Return
+    -----------
+    A 3-element array containing atmosphere light ([0, L-1]) for each channel
+    """
+    # reference CVPR09, 4.4
+    M, N = darkch.shape
+    flatI = I.reshape(M * N, 3)
+    flatdark = darkch.ravel()
+    searchidx = (-flatdark).argsort()[:int(M * N * p)]  # find top M * N * p indexes
+    # return the highest intensity for each channel
+    return np.max(flatI.take(searchidx, axis=0), axis=0)
+
+def haze_remove(im, A, t, t0):
+    reshaped_t = t[:, :, np.newaxis].repeat(3, axis=2)
+    im = im/255
+    A = A/255
+    radiance= (im-A)/reshaped_t + A
+    
+    return radiance
