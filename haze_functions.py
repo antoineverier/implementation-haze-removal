@@ -93,3 +93,12 @@ def haze_remove(im, A, t, t0):
     radiance= (im-A)/reshaped_t + A
     
     return radiance
+
+def depth(t, beta):
+    """
+    im : image intensity
+    beta : scattering coefficient of the atmosphere
+    """
+    depthmap = np.array(np.shape(t))
+    depthmap = -(1/beta)*np.log2(t)
+    return depthmap
