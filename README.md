@@ -8,3 +8,10 @@ Atmospheric light estimation with two strategies: He et al. top-percentile appro
 Transmission map estimation with ω control and t0 floor to preserve natural depth.
 Guided filter refinement of the transmission using the original image as guide for crisp edges.
 Parameter studies for Ω, ε, r, ω, with qualitative comparisons on example images.
+
+## 📂 Repository Structure
+```text
+├── README.md              # Project documentation  
+├── haze_functions.py      # Main function for the haze removal
+├── guided_filter.py       # Main function for the guided filter implementation
+└── CompteRendu.py         # Main jupyter notebook with experiments etc.
